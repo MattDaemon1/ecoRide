@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,6 +42,37 @@ class Utilisateur
 
     #[ORM\Column(length: 50)]
     private ?string $pseudo = null;
+
+    /**
+     * @var Collection<int, Role>
+     */
+    #[ORM\OneToMany(targetEntity: Role::class, mappedBy: 'utilisateur')]
+    private Collection $role;
+
+    /**
+     * @var Collection<int, Avis>
+     */
+    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'utilisateur')]
+    private Collection $avis;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Covoiturage $covoiturage = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Voiture $voiture = null;
+
+    /**
+     * @var Collection<int, Configuration>
+     */
+    #[ORM\OneToMany(targetEntity: Configuration::class, mappedBy: 'utilisateur')]
+    private Collection $configuration;
+
+    public function __construct()
+    {
+        $this->role = new ArrayCollection();
+        $this->avis = new ArrayCollection();
+        $this->configuration = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +183,120 @@ class Utilisateur
     public function setPseudo(string $pseudo): static
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getRole(): Collection
+    {
+        return $this->role;
+    }
+
+    public function addRole(Role $role): static
+    {
+        if (!$this->role->contains($role)) {
+            $this->role->add($role);
+            $role->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): static
+    {
+        if ($this->role->removeElement($role)) {
+            // set the owning side to null (unless already changed)
+            if ($role->getUtilisateur() === $this) {
+                $role->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): static
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): static
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getUtilisateur() === $this) {
+                $avi->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCovoiturage(): ?Covoiturage
+    {
+        return $this->covoiturage;
+    }
+
+    public function setCovoiturage(?Covoiturage $covoiturage): static
+    {
+        $this->covoiturage = $covoiturage;
+
+        return $this;
+    }
+
+    public function getVoiture(): ?Voiture
+    {
+        return $this->voiture;
+    }
+
+    public function setVoiture(?Voiture $voiture): static
+    {
+        $this->voiture = $voiture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Configuration>
+     */
+    public function getConfiguration(): Collection
+    {
+        return $this->configuration;
+    }
+
+    public function addConfiguration(Configuration $configuration): static
+    {
+        if (!$this->configuration->contains($configuration)) {
+            $this->configuration->add($configuration);
+            $configuration->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConfiguration(Configuration $configuration): static
+    {
+        if ($this->configuration->removeElement($configuration)) {
+            // set the owning side to null (unless already changed)
+            if ($configuration->getUtilisateur() === $this) {
+                $configuration->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }

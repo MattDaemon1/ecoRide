@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VoitureRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VoitureRepository::class)]
@@ -27,6 +29,20 @@ class Voiture
 
     #[ORM\Column(length: 50)]
     private ?string $datePremiereImmatriculation = null;
+
+    /**
+     * @var Collection<int, Covoiturage>
+     */
+    #[ORM\OneToMany(targetEntity: Covoiturage::class, mappedBy: 'voiture')]
+    private Collection $covoiturage;
+
+    #[ORM\ManyToOne(inversedBy: 'voitures')]
+    private ?Marque $marque = null;
+
+    public function __construct()
+    {
+        $this->covoiturage = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +105,48 @@ class Voiture
     public function setDatePremiereImmatriculation(string $datePremiereImmatriculation): static
     {
         $this->datePremiereImmatriculation = $datePremiereImmatriculation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Covoiturage>
+     */
+    public function getCovoiturage(): Collection
+    {
+        return $this->covoiturage;
+    }
+
+    public function addCovoiturage(Covoiturage $covoiturage): static
+    {
+        if (!$this->covoiturage->contains($covoiturage)) {
+            $this->covoiturage->add($covoiturage);
+            $covoiturage->setVoiture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCovoiturage(Covoiturage $covoiturage): static
+    {
+        if ($this->covoiturage->removeElement($covoiturage)) {
+            // set the owning side to null (unless already changed)
+            if ($covoiturage->getVoiture() === $this) {
+                $covoiturage->setVoiture(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMarque(): ?Marque
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?Marque $marque): static
+    {
+        $this->marque = $marque;
 
         return $this;
     }
