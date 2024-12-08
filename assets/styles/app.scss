@@ -1,0 +1,22 @@
+// Importez vos variables et mixins
+@import 'variables';
+@import 'mixins';
+
+// Importez des composants
+@import 'components/buttons';
+@import 'components/forms';
+
+// Styles globaux
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+// Exemple de variable
+$primary-color: #3498db;
+
+.main-container {
+    background-color: $primary-color;
+    padding: 20px;
+}

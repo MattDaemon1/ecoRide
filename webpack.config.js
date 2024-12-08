@@ -13,7 +13,11 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
-
+    .copyFiles({
+        from: './assets/images',
+        to: 'images' // change to 'images' to correctly copy to 'public/build/images'
+    })
+    .enableStimulusBridge('./assets/controllers') // adds the Stimulus Bridge
     /*
      * ENTRY CONFIG
      *
@@ -52,11 +56,13 @@ Encore
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
         config.corejs = '3.38';
+
+
     })
 
     // enables Sass/SCSS support
     .enableSassLoader()
-
+    .enableVueLoader()
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
 
