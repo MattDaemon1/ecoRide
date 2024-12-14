@@ -1,6 +1,9 @@
-$primary-color: #3498db;
+@use "~bootstrap/scss/bootstrap"; // Importation de Bootstrap
+
+$primary-color: #ffffff; // Déclaration de votre couleur de fond
+$text-color: #000000; // Déclaration de votre couleur de texte
 
 body {
-    background-color: $primary-color;
-    color: white;
+    background-color: $primary-color; // Utilisation de votre couleur de fond
+    color: $text-color; // Utilisation de votre couleur de texte
 }
