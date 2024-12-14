@@ -4,6 +4,10 @@ $primary-color: #ffffff; // Déclaration de votre couleur de fond
 $text-color: #000000; // Déclaration de votre couleur de texte
 
 body {
-    background-color: $primary-color; // Utilisation de votre couleur de fond
-    color: $text-color; // Utilisation de votre couleur de texte
-}
+    background-color: $primary-color; // Fond blanc
+    color: $text-color;              // Texte noir
+  }
+  
+  h1 {
+    color: $text-color; // Texte noir pour les titres
+  }
