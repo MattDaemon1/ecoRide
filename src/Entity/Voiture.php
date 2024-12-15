@@ -32,6 +32,9 @@ class Voiture
     #[ORM\ManyToOne(inversedBy: 'voitures')]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'voiture')]
+    private ?Marque $marque = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Voiture
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getMarque(): ?Marque
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?Marque $marque): static
+    {
+        $this->marque = $marque;
 
         return $this;
     }
