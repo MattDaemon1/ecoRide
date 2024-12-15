@@ -62,6 +62,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'user')]
     private Collection $avis;
 
+    #[ORM\ManyToOne(inversedBy: 'user')]
+    private ?Role $role = null;
+
     public function __construct()
     {
         $this->avis = new ArrayCollection();
@@ -252,6 +255,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $avi->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
+
+    public function setRole(?Role $role): static
+    {
+        $this->role = $role;
 
         return $this;
     }
