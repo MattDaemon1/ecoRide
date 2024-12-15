@@ -75,4 +75,9 @@ class Marque
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->libelle ?? 'Marque inconnue'; // Valeur par défaut si libelle est null
+    }
 }

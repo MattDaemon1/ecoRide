@@ -3,8 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Avis;
+use App\Entity\Covoiturage;
 use App\Entity\Marque;
 use App\Entity\Role;
+use App\Entity\User;
+use App\Entity\Voiture;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -47,5 +50,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Marque', 'fas fa-list', Marque::class);
         yield MenuItem::linkToCrud('Role', 'fa-solid fa-people-group', Role::class);
         yield MenuItem::linkToCrud('Avis', 'fa-solid fa-comments', Avis::class);
+        yield MenuItem::linkToCrud('Covoiturage', 'fa-solid fa-car-side', Covoiturage::class);
+        yield MenuItem::linkToCrud('User', 'fa-solid fa-user', User::class);
+        yield MenuItem::linkToCrud('Voiture', 'fa-solid fa-car', Voiture::class);
     }
 }

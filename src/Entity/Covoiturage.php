@@ -52,6 +52,9 @@ class Covoiturage
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'covoiturage')]
     private Collection $avis;
 
+    #[ORM\ManyToOne(inversedBy: 'covoiturages')]
+    private ?Voiture $voiture = null;
+
     public function __construct()
     {
         $this->avis = new ArrayCollection();
@@ -208,6 +211,18 @@ class Covoiturage
                 $avi->setCovoiturage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVoiture(): ?Voiture
+    {
+        return $this->voiture;
+    }
+
+    public function setVoiture(?Voiture $voiture): static
+    {
+        $this->voiture = $voiture;
 
         return $this;
     }
