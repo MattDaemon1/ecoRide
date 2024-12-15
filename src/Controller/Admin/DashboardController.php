@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Avis;
 use App\Entity\Marque;
+use App\Entity\Role;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -43,5 +45,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Marque', 'fas fa-list', Marque::class);
+        yield MenuItem::linkToCrud('Role', 'fa-solid fa-people-group', Role::class);
+        yield MenuItem::linkToCrud('Avis', 'fa-solid fa-comments', Avis::class);
     }
 }
