@@ -125,6 +125,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    public function __toString(): string
+    {
+        return $this->pseudo ?? $this->email ?? 'Utilisateur sans pseudo';
+    }
+
     /**
      * @param list<string> $roles
      */
