@@ -26,6 +26,9 @@ class Avis
     #[ORM\ManyToOne(inversedBy: 'avis')]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'avis')]
+    private ?Covoiturage $covoiturage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Avis
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCovoiturage(): ?Covoiturage
+    {
+        return $this->covoiturage;
+    }
+
+    public function setCovoiturage(?Covoiturage $covoiturage): static
+    {
+        $this->covoiturage = $covoiturage;
 
         return $this;
     }
